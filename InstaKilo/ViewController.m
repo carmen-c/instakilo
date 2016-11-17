@@ -14,7 +14,8 @@
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic) UICollectionViewFlowLayout *flowLayout;
+@property (nonatomic) UICollectionViewFlowLayout *groupLayout;
+@property (nonatomic) UICollectionViewFlowLayout *allLayout;
 @property (nonatomic) NSArray* catscollection;
 @end
 
@@ -26,19 +27,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     
     [self setupData];
-    
-    //self.catscollection = [NSArray arrayWithArray:[self prepareDataSource]];
-    
-    self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    self.flowLayout.itemSize = CGSizeMake(100, 100);
-    self.flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.flowLayout.minimumInteritemSpacing = 15;
-    self.flowLayout.minimumLineSpacing = 15;
-    self.flowLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 50);
-    
-    self.collectionView.collectionViewLayout = self.flowLayout;
-    // Register cell classes
-    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"myCell"];
+    [self setupLayout];
     
 }
 
@@ -112,6 +101,23 @@ static NSString * const reuseIdentifier = @"Cell";
  }
  */
 
+#pragma mark - segment control
+
+- (IBAction)segmentControls:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        [self.collectionView setCollectionViewLayout:self.groupLayout animated:YES];
+        
+    } else if (sender.selectedSegmentIndex == 1) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        [self.collectionView setCollectionViewLayout:self.allLayout animated:YES];
+    }
+}
+
+
+#pragma mark - set up
+
+
 -(void)setupData {
     self.catscollection = @[
             [CatSubjects catSubjectsWithSubject:@"Fat Cats" cats:@[
@@ -128,6 +134,20 @@ static NSString * const reuseIdentifier = @"Cell";
                     [CatImages catImagesWithCatImageName:@"cat10"]]]
                           ];
                             
+}
+
+-(void)setupLayout {
+    
+    self.groupLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.groupLayout.itemSize = CGSizeMake(100, 100);
+    self.groupLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    self.groupLayout.minimumLineSpacing = 5;
+    self.groupLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 50);
+    
+    self.allLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.allLayout.itemSize = CGSizeMake(100, 100);
+    self.allLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    self.allLayout.minimumLineSpacing = 5;
 }
     
 @end

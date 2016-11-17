@@ -93,12 +93,15 @@
                     <navigationItem key="navigationItem" id="2eZ-Ja-Kf1">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="gvR-p2-yq4">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4ag-g1-CxW">
-                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <rect key="frame" x="258" y="7" width="101" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title=""/>
-                                    <segment title=""/>
+                                    <segment title="group"/>
+                                    <segment title="all"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentControls:" destination="BYZ-38-t0r" eventType="valueChanged" id="nbV-43-7X3"/>
+                                </connections>
                             </segmentedControl>
                         </barButtonItem>
                     </navigationItem>
